@@ -1,11 +1,23 @@
-# os
+# 32 bit os
+> Nicholas Ramsay
+
+## Credits
+* [Writing My Own Bootloader](https://dev.to/frosnerd/writing-my-own-boot-loader-3mld)
 
 ## Usage
-### Requirements
+1. Install the requirements
 * `mkisofs` - install `cdrkit` on arch linux
 * `nasm`
+* `qemu`
 
-## Global Descriptor Table (GDT)
+2. Run the following to build and run
+```
+make
+qemu-system-x86_64 -fda bin/image.bin
+```
+
+## How it works
+### Global Descriptor Table (GDT)
 | Bits | Name        | Description                          |
 | ---- | ----------- | ------------------------------------ |
 | 1    | Present     | Set to 1 for used segments           |
@@ -14,7 +26,7 @@
 | 4    | Type Flags  | See below                            |
 | 4    | Other Flags | See below                            |
 
-### Type Flags
+#### Type Flags
 | Flag Position | Name                     | Description                                                     |
 | ------------- | ------------------------ | --------------------------------------------------------------- |
 | 1xxx          | Executable/Code          | Whether this is a code segment                                  |
@@ -36,7 +48,7 @@ Otherwise, for data segments, the middle two flags are instead:
 | x1xx          | Direction   | Whether this code can be executed from lower privelage segments |
 | xx1x          | Writeable   | Whether this segment is writeable                               |
 
-### Other Flags
+#### Other Flags
 | Flag Position | Name        | Description                                                     |
 | ------------- | ----------- | ------------------------------------------- |
 | 1xxx          | Granularity | When set, `limit *= 0x1000`                 |
