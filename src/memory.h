@@ -1,0 +1,28 @@
+#ifndef MEMORY_H
+#define MEMORY_H
+
+#define INTERUPT_TABLE_HEAD 0x00000000 /* real mode interrupt vector table */
+#define INTERUPT_TABLE_SIZE 0x000003FF
+#define BIOS_DATA_HEAD 0x00000400 /* bios data area */
+#define BIOS_DATA_SIZE 0x000000FF
+#define UNUSED1_HEAD 0x00000500 /* 0x00000500 - 0x00007BFF */
+#define UNUSED1_SIZE 0x000076FF
+#define BOOTLOADER_HEAD 0x00007C00 /* 0x00007C00 - 0x00007DFF */
+#define BOOTLOADER_SIZE 0x000001FF
+#define UNUSED2_HEAD 0x00007E00 /* 2nd unused space */
+#define UNUSED2_SIZE 0x000981FF
+#define VRAM_HEAD 0x000A0000 /* video ram (VRAM) memory */
+#define VRAM_SIZE 0x0001FFFF
+#define MONOCHROME_VIDEO_HEAD 0x000B0000 /* monochrome video memory */
+#define MONOCHROME_VIDEO_SIZE 0x00007777
+#define COLOR_VIDEO_HEAD 0x000B8000 /* color video memory */
+#define COLOR_VIDEO_SIZE 0x00007FFF
+#define VIDEO_ROM_BIOS_HEAD 0x000C0000 /* video ROM BIOS */
+#define VIDEO_ROM_BIOS_SIZE 0x00007FFF
+#define BIOS_SHADOW_AREA_HEAD 0x000C8000 /* BIOS shadow area */
+#define BIOS_SHADOW_AREA_SIZE 0x00027FFF
+#define SYSTEM_BIOS_HEAD 0x000F0000 /* system BIOS */
+#define SYSTEM_BIOS_SIZE 0x0000FFFF
+
+#endif /* MEMORY_H */
+
