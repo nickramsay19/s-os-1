@@ -1,7 +1,10 @@
 CC := gcc
 CFLAGS := -ansi -m32 -ffreestanding -fno-pic
-AS := nasm
+#AS := nasm
+AS := as
 ASFLAGS := 
+LD := ld
+LDFLAGS :=
 
 all: dist/image.iso
 
@@ -21,16 +24,18 @@ bin/image.bin: bin/boot.bin bin/kernel.bin
 
 bin/boot.bin: src/boot.s
 	@mkdir -p bin
-	$(AS) $(ASFLAGS) -f bin -I 'src/' -o $@ $^
+	#$(AS) $(ASFLAGS) -f bin -I 'src/' -o $@ $^
+	$(AS) $(ASFLAGS) -I 'src/' -o $@ $^
 	#as -o $@ -c $^
 
 bin/kernel.bin: build/kernel_entry.o build/kernel.o
 	@mkdir -p bin
-	ld -m elf_i386 -o $@ -Ttext 0x1000 $^ --oformat binary
+	$(LD) -m elf_i386 -o $@ -Ttext 0x1000 $^ --oformat binary
 
 build/kernel_entry.o: src/kernel_entry.s
 	@mkdir -p build
-	$(AS) $(ASFLAGS) $< -f elf -o $@
+	#$(AS) $(ASFLAGS) $< -f elf -o $@
+	$(AS) $(ASFLAGS) $< -o $@
 
 build/kernel.o: src/kernel.c
 	@mkdir -p build
