@@ -1,13 +1,13 @@
 disk_load:
-    pusha
-    push dx
+; https://en.wikipedia.org/wiki/INT_13H#INT_13h_AH=02h:_Read_Sectors_From_Drive
+    pusha           ; push all general purpose registers
+    push dx         ; push dx again containing [BOOT_DRIVE]
 
-    mov ah, 0x02 ; read mode
-    mov al, dh   ; read dh number of sectors
-    mov cl, 0x02 ; start from sector 2
-                 ; (as sector 1 is our boot sector)
-    mov ch, 0x00 ; cylinder 0
-    mov dh, 0x00 ; head 0
+    mov ah, 0x02    ; disk read mode
+    mov al, dh      ; read dh number of sectors
+    mov cl, 0x02    ; start from sector 2 (as sector 1 is our boot sector)
+    mov ch, 0x00    ; cylinder 0
+    mov dh, 0x00    ; head 0
 
     ; dl = drive number is set as input to disk_load
     ; es:bx = buffer pointer is set as input as well
